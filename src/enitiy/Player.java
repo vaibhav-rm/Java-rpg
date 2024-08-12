@@ -9,7 +9,7 @@ import main.KeyHandler;
 
 public class Player extends Enitiy {
     
-    GamePanel gp;
+    GamePanel gp;									
     KeyHandler keyH;
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -68,7 +68,7 @@ public class Player extends Enitiy {
             isMoving = true;
         } else if (keyH.leftPressed) {
             direction = "left";
-            x -= speed;
+            x -= speed;                     
             isMoving = true;
         } else if (keyH.rightPressed) {
             direction = "right";
@@ -99,7 +99,7 @@ public class Player extends Enitiy {
             case "left":
                 currentImages = leftImages;
                 idleImages = leftIdle;
-                break;
+                break;	
             case "right":
                 currentImages = rightImages;
                 idleImages = rightIdle;
@@ -114,6 +114,6 @@ public class Player extends Enitiy {
                 ? currentImages[spriteNum - 1]  // Use walking animation
                 : idleImages[spriteNum - 1];  // Use idle animation
 
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, x, y, gp.playerSize, gp.playerSize, null);
     }
 }
