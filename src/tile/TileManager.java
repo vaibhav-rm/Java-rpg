@@ -16,7 +16,7 @@ public class TileManager {
 	Tile[] tile;
 	int mapTileNum[][];
 	public TileManager(GamePanel gp) {
-		
+			
 		this.gp = gp;
 		tile = new Tile[10];
 		mapTileNum= new int[gp.maxWorldCol][gp.maxWorldRow];
@@ -37,6 +37,7 @@ public class TileManager {
 			
 			tile[2] = new Tile();
 			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Water_Middle.png"));
+			tile[2].collision = true;
 			
 		} catch(IOException e) {
 			e.printStackTrace();

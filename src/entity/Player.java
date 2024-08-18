@@ -1,13 +1,16 @@
-package enitiy;
+package entity;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
+
 import main.GamePanel;
 import main.KeyHandler;
 
-public class Player extends Enitiy {
+public class Player extends Entity {
     
     GamePanel gp;									
     KeyHandler keyH;
@@ -21,6 +24,12 @@ public class Player extends Enitiy {
         
         screenX = gp.ScreenWidth / 2 - (gp.playerSize / 2);
         screenY = gp.ScreenHeight / 2 - (gp.playerSize / 2);
+        
+        solidArea = new Rectangle();
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidArea.width = 32;
+        solidArea.height = 32;
 
         setDefaultValues();
         loadPlayerImages();
