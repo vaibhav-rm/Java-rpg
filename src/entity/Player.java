@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -26,10 +27,10 @@ public class Player extends Entity {
         screenY = gp.ScreenHeight / 2 - (gp.playerSize / 2);
         
         solidArea = new Rectangle();
-        solidArea.x = 8;
-        solidArea.y = 16;
+        solidArea.x = 32;
+        solidArea.y = 45;
         solidArea.width = 32;
-        solidArea.height = 32;
+        solidArea.height = 26;
 
         setDefaultValues();
         loadPlayerImages();
@@ -75,22 +76,40 @@ public class Player extends Entity {
 
         if (keyH.upPressed) {
             direction = "up";
-            worldY -= speed;
             isMoving = true;
         } else if (keyH.downPressed) {
             direction = "down";
-            worldY += speed;
             isMoving = true;
         } else if (keyH.leftPressed) {
             direction = "left";
-            worldX -= speed;                     
             isMoving = true;
         } else if (keyH.rightPressed) {
             direction = "right";
-            worldX += speed;
             isMoving = true;
         }
+        
+        //CHECK TILE COLLISION
+        collisionOn = false;
+        gp.cChecker.checkTile(this);
 
+        //IF COLLISION IS FALSE, PLAYER CAN MOVE
+        if (collisionOn == false && isMoving) {
+        	switch(direction) {
+        	case "up":
+        		worldY -= speed;
+        		break;
+        	case "down":
+        		 worldY += speed;
+        		break;
+        	case "left":
+        		worldX -= speed;
+        		break;
+        	case "right":
+        		worldX += speed;
+        		break;
+        	}
+        }
+        
         spriteCounter++;
         if (spriteCounter > 10) {
             spriteNum = (spriteNum % 6) + 1;  // Cycle through 1 to 6
@@ -130,5 +149,24 @@ public class Player extends Entity {
                 : idleImages[spriteNum - 1];  // Use idle animation
 
         g2.drawImage(image, screenX, screenY, gp.playerSize, gp.playerSize, null);
+        
+        
+//        //DEBUG: DRAW PLAYER BOX
+//        g2.setColor(Color.BLUE);
+//        g2.drawRect(
+//            screenX,
+//            screenY,
+//            gp.playerSize,
+//            gp.playerSize
+//        );
+//        
+//        //DEBUG: DRAW COLLISION BOX
+//        g2.setColor(Color.RED);
+//        g2.drawRect(
+//            screenX + solidArea.x,
+//            screenY + solidArea.y,
+//            solidArea.width,
+//            solidArea.height
+//        );
     }
 }
